@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="943647ce-8669-498d-8405-0f0c75590518" name="woody_server" url="http://woodysever">
+        <fileTransfer rootFolder="/var/www/api-server-spring-boot-final" accessType="SFTP" host="3.38.58.170" port="22" sshConfigId="b342ec7f-0f65-4803-8519-cdf835fd2fb0" sshConfig="ubuntu@3.38.58.170:22 key" keyPair="true">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" keepAliveTimeout="0" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>
