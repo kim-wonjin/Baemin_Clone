@@ -92,12 +92,12 @@ public class UserDao {
     }
 
     public int createUser(PostUserReq postUserReq){
-        String createUserQuery = "insert into Users (user_name, user_email, user_password, user_phone_number, agree_to_receive_mail, agree_to_receive_sms) VALUES (?,?,?,?,?,?)";
-        Object[] createUserParams = new Object[]{postUserReq.getUserName(), postUserReq.getEmail(), postUserReq.getPassword(),
-                postUserReq.getPhoneNum(), postUserReq.getAgree_to_receive_mail(), postUserReq.getAgree_to_receive_sms()};
-        this.jdbcTemplate.update(createUserQuery, createUserParams);
-        String lastInserIdQuery = "select last_insert_id()";
-        return this.jdbcTemplate.queryForObject(lastInserIdQuery,int.class);
+        String createUserQuery = "insert into Users (user_name, user_phone_number, user_email, user_password, agree_to_receive_mail, agree_to_receive_sms) VALUES (?,?,?,?,?,?)";
+        Object[] createUserParams = new Object[]{ postUserReq.getUserName(), postUserReq.getPhoneNum(), postUserReq.getEmail(),
+                postUserReq.getPassword(), postUserReq.getAgree_to_receive_mail(), postUserReq.getAgree_to_receive_sms()};
+        this.jdbcTemplate.update(createUserQuery,createUserParams);
+        String lastInsertIdQuery = "SELECT last_insert_id()";
+        return this.jdbcTemplate.queryForObject(lastInsertIdQuery,int.class);
     }
 
     public int checkEmail(String email){
@@ -116,20 +116,18 @@ public class UserDao {
     }
 
     public User getPwd(PostLoginReq postLoginReq){
-        String getPwdQuery = "select userIdx, password,email,userName,ID from UserInfo where ID = ?";
-        String getPwdParams = postLoginReq.getId();
+        String getPwdQuery = "select user_id, user_password, user_email, user_name from Users where user_email = ?";
+        String getPwdParams = postLoginReq.getEmail();
 
         return this.jdbcTemplate.queryForObject(getPwdQuery,
                 (rs,rowNum)-> new User(
-                        rs.getInt("userIdx"),
-                        rs.getString("ID"),
-                        rs.getString("userName"),
-                        rs.getString("password"),
-                        rs.getString("email")
+                        rs.getInt("user_id"),
+                        rs.getString("user_email"),
+                        rs.getString("user_name"),
+                        rs.getString("user_password")
                 ),
                 getPwdParams
         );
-
     }
 
 

@@ -3,12 +3,13 @@ package com.example.demo.src.user.model;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
+import org.w3c.dom.Text;
 
 @Getter
 @Setter
 @AllArgsConstructor
 public class PostUserReq {
-    private String UserName;
+    private String userName;
     private String phoneNum;
     private String email;
     private String password;
