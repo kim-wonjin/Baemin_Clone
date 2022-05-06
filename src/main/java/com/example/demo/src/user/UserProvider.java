@@ -95,9 +95,6 @@ public class UserProvider {
         } catch (Exception ignored) {
             throw new BaseException(PASSWORD_DECRYPTION_ERROR);
         }
-        System.out.println(user.getEmail());
-        System.out.println(user.getPassword());
-        System.out.println(encryptPwd);
         if(user.getPassword().equals(encryptPwd)){
             int userId = user.getUserId();
             String jwt = jwtService.createJwt(userId);

@@ -21,7 +21,7 @@ public class GetStoreRes {
     private int minRequiredTime;
     private int maxRequiredTime;
     private float rating;
-    private int like;
-    private int order;
+    private int likes;
+    private int orders;
     private String description;
 }

@@ -61,7 +61,7 @@ public class UserDao {
     }
 
     public List <GetUserAddressRes> getUserAddress(int userId){
-        String getUserAddressQuery = "select * from User_address where user_id = ?";
+        String getUserAddressQuery = "select * from User_address where user_id = ? && status = 'ACTIVE'";
         int getUserAddressParams = userId;
         return this.jdbcTemplate.query(getUserAddressQuery,
                 (rs, rowNum) -> new GetUserAddressRes(
@@ -108,11 +108,12 @@ public class UserDao {
                 checkEmailParams);
     }
 
-    public int modifyUserName(PatchUserReq patchUserReq){
-        String modifyUserNameQuery = "update UserInfo set userName = ? where userIdx = ? ";
-        Object[] modifyUserNameParams = new Object[]{patchUserReq.getUserName(), patchUserReq.getUserIdx()};
+    public int modifyUser(PatchUserReq patchUserReq){
+        String modifyUserQuery = "update Users set user_name = ?, user_phone_number = ?, agree_to_receive_mail = ?, agree_to_receive_sms = ? where user_id = ? ";
+        Object[] modifyUserParams = new Object[]{patchUserReq.getUserName(), patchUserReq.getPhoneNum(), patchUserReq.getAgree_to_receive_mail(),
+                patchUserReq.getAgree_to_receive_sms(), patchUserReq.getUserId()};
 
-        return this.jdbcTemplate.update(modifyUserNameQuery,modifyUserNameParams);
+        return this.jdbcTemplate.update(modifyUserQuery,modifyUserParams);
     }
 
     public User getPwd(PostLoginReq postLoginReq){
