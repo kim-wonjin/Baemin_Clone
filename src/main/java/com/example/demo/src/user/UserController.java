@@ -93,6 +93,32 @@ public class UserController {
             return new BaseResponse<>((exception.getStatus()));
         }
     }
+    /**
+     * 유저 주소 생성 API
+     * [POST] /users/address
+     * @return BaseResponse<PostUserAddressRes>
+     */
+    // Body
+    @ResponseBody
+    @PostMapping("/address")
+    public BaseResponse<PostUserAddressRes> createUser(@RequestBody PostUserAddressReq postUserAddressReq) {
+        try{
+            //jwt에서 idx 추출.
+            int userIdByJwt = jwtService.getUserId();
+            //userId와 접근한 유저가 같은지 확인
+            if(postUserAddressReq.getUserId() != userIdByJwt) {
+                return new BaseResponse<>(INVALID_USER_JWT);
+            }
+            // null validation
+            if(postUserAddressReq.getAddress() == null){
+                return new BaseResponse<>(POST_USERS_EMPTY_ADDRESS);
+            }
+            PostUserAddressRes postUserAddressRes = userService.createAddress(postUserAddressReq);
+            return new BaseResponse<>(postUserAddressRes);
+        } catch(BaseException exception){
+            return new BaseResponse<>((exception.getStatus()));
+        }
+    }
 
     /**
      * 유저 쿠폰 조회 API

@@ -100,6 +100,15 @@ public class UserDao {
         return this.jdbcTemplate.queryForObject(lastInsertIdQuery,int.class);
     }
 
+    public int createAddress(PostUserAddressReq postUserAddressReq){
+        String createAddressQuery = "insert into User_address (user_id, address, detail_address, address_name, is_default_address) VALUES (?,?,?,?,?)";
+        Object[] createAddressParams = new Object[]{postUserAddressReq.getUserId(), postUserAddressReq.getAddress(), postUserAddressReq.getDetailAddress(),
+                postUserAddressReq.getAddressName(), postUserAddressReq.getIsDefault()};
+        this.jdbcTemplate.update(createAddressQuery,createAddressParams);
+        String lastInsertIdQuery = "SELECT last_insert_id()";
+        return this.jdbcTemplate.queryForObject(lastInsertIdQuery,int.class);
+    }
+
     public int checkEmail(String email){
         String checkEmailQuery = "select exists(select user_email from Users where user_email = ?)";
         String checkEmailParams = email;

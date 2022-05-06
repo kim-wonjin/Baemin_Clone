@@ -32,6 +32,7 @@ public enum BaseResponseStatus {
     POST_USERS_EMPTY_EMAIL(false, 2018, "이메일을 입력해주세요."),
     POST_USERS_INVALID_EMAIL(false, 2019, "이메일 형식을 확인해주세요."),
     POST_USERS_EXISTS_EMAIL(false,2020,"중복된 이메일입니다."),
+    POST_USERS_EMPTY_ADDRESS(false, 2021, "주소를 입력해주세요."),
 
 
 

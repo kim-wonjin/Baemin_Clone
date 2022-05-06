@@ -56,6 +56,15 @@ public class UserService {
         }
     }
 
+    public PostUserAddressRes createAddress(PostUserAddressReq postUserAddressReq) throws BaseException {
+        try{
+            int addressId = userDao.createAddress(postUserAddressReq);
+            return new PostUserAddressRes(addressId);
+        } catch (Exception exception) {
+            throw new BaseException(DATABASE_ERROR);
+        }
+    }
+
     public void modifyUser(PatchUserReq patchUserReq) throws BaseException {
         try{
             int result = userDao.modifyUser(patchUserReq);
