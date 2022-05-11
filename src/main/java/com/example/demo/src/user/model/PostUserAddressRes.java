@@ -8,5 +8,5 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 public class PostUserAddressRes {
-    private int userId;
+    private int addressId;
 }

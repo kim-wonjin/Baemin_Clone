@@ -13,6 +13,6 @@ public class PostUserReq {
     private String phoneNum;
     private String email;
     private String password;
-    private String agree_to_receive_mail;
-    private String agree_to_receive_sms;
+    private String agreeToReceiveMail;
+    private String agreeToReceiveSms;
 }

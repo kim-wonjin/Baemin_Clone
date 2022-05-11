@@ -86,15 +86,15 @@ public class UserDao {
                         rs.getString("couponName"),
                         rs.getInt("discount"),
                         rs.getInt("minPrice"),
-                        rs.getTimestamp("createdAt"),
-                        rs.getTimestamp("expireAt")),
+                        rs.getString("createdAt"),
+                        rs.getString("expireAt")),
                 getUserCouponParams);
     }
 
     public int createUser(PostUserReq postUserReq){
         String createUserQuery = "insert into Users (user_name, user_phone_number, user_email, user_password, agree_to_receive_mail, agree_to_receive_sms) VALUES (?,?,?,?,?,?)";
         Object[] createUserParams = new Object[]{ postUserReq.getUserName(), postUserReq.getPhoneNum(), postUserReq.getEmail(),
-                postUserReq.getPassword(), postUserReq.getAgree_to_receive_mail(), postUserReq.getAgree_to_receive_sms()};
+                postUserReq.getPassword(), postUserReq.getAgreeToReceiveMail(), postUserReq.getAgreeToReceiveSms()};
         this.jdbcTemplate.update(createUserQuery,createUserParams);
         String lastInsertIdQuery = "SELECT last_insert_id()";
         return this.jdbcTemplate.queryForObject(lastInsertIdQuery,int.class);
@@ -109,6 +109,14 @@ public class UserDao {
         return this.jdbcTemplate.queryForObject(lastInsertIdQuery,int.class);
     }
 
+    public int createCoupon(PostUserCouponReq postUserCouponReq){
+        String createCouponQuery = "insert into User_coupons (user_id, coupon_id) VALUES (?,?)";
+        Object[] createCouponParams = new Object[]{postUserCouponReq.getUserId(), postUserCouponReq.getCouponId() };
+        this.jdbcTemplate.update(createCouponQuery,createCouponParams);
+        String lastInsertIdQuery = "SELECT last_insert_id()";
+        return this.jdbcTemplate.queryForObject(lastInsertIdQuery,int.class);
+    }
+
     public int checkEmail(String email){
         String checkEmailQuery = "select exists(select user_email from Users where user_email = ?)";
         String checkEmailParams = email;
@@ -117,12 +125,34 @@ public class UserDao {
                 checkEmailParams);
     }
 
+    public int checkCoupon(int userId, int couponId){
+        String checkCouponQuery = "select exists(select user_coupon_id from User_coupons where user_id = ? && coupon_id = ?)";
+        Object[] checkCouponParams = new Object[]{userId, couponId};
+        return this.jdbcTemplate.queryForObject(checkCouponQuery,
+                int.class,
+                checkCouponParams);
+    }
+
     public int modifyUser(PatchUserReq patchUserReq){
         String modifyUserQuery = "update Users set user_name = ?, user_phone_number = ?, agree_to_receive_mail = ?, agree_to_receive_sms = ? where user_id = ? ";
-        Object[] modifyUserParams = new Object[]{patchUserReq.getUserName(), patchUserReq.getPhoneNum(), patchUserReq.getAgree_to_receive_mail(),
-                patchUserReq.getAgree_to_receive_sms(), patchUserReq.getUserId()};
+        Object[] modifyUserParams = new Object[]{patchUserReq.getUserName(), patchUserReq.getPhoneNum(), patchUserReq.getAgreeToReceiveMail(),
+                patchUserReq.getAgreeToReceiveSms(), patchUserReq.getUserId()};
 
         return this.jdbcTemplate.update(modifyUserQuery,modifyUserParams);
+    }
+
+    public int modifyAddress(PatchAddressReq patchAddressReq){
+        String modifyAddressQuery = "update User_address set address = ?, detail_address = ?, address_name = ?, is_default_address = ?";
+        Object[] modifyAddressParams = new Object[]{patchAddressReq.getAddress(), patchAddressReq.getDetailAddress(), patchAddressReq.getAddressName(), patchAddressReq.getIsDefault()};
+
+        return this.jdbcTemplate.update(modifyAddressQuery,modifyAddressParams);
+    }
+
+    public int deleteAddress(int addressId){
+        String deleteAddressQuery = "DELETE FROM User_address WHERE address_id = ?";
+        int deleteAddressParams = addressId;
+
+        return this.jdbcTemplate.update(deleteAddressQuery, deleteAddressParams);
     }
 
     public User getPwd(PostLoginReq postLoginReq){

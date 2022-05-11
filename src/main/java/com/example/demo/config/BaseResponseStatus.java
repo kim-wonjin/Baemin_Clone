@@ -33,7 +33,7 @@ public enum BaseResponseStatus {
     POST_USERS_INVALID_EMAIL(false, 2019, "이메일 형식을 확인해주세요."),
     POST_USERS_EXISTS_EMAIL(false,2020,"중복된 이메일입니다."),
     POST_USERS_EMPTY_ADDRESS(false, 2021, "주소를 입력해주세요."),
-
+    POST_USERS_EXISTS_COUPON(false,2022,"이미 발급된 쿠폰입니다."),
 
 
     /**
@@ -55,10 +55,13 @@ public enum BaseResponseStatus {
     SERVER_ERROR(false, 4001, "서버와의 연결에 실패하였습니다."),
 
     //[PATCH] /users/{userIdx}
-    MODIFY_FAIL_USERINFO(false,4014,"유저정보 수정 실패"),
+    MODIFY_FAIL_USERINFO(false,4014,"유저정보 수정에 실패하였습니다"),
+    DELETE_FAIL_ADDRESS(false,4015,"유저주소 삭제에 실패하였습니다"),
+    MODIFY_FAIL_ADDRESS(false,4016,"유저주소 수정에 실패하였습니다"),
 
     PASSWORD_ENCRYPTION_ERROR(false, 4011, "비밀번호 암호화에 실패하였습니다."),
     PASSWORD_DECRYPTION_ERROR(false, 4012, "비밀번호 복호화에 실패하였습니다.");
+
 
 
     // 5000 : 필요시 만들어서 쓰세요

@@ -2,7 +2,9 @@ package com.example.demo.src.store;
 
 import com.example.demo.config.BaseException;
 import com.example.demo.config.BaseResponseStatus;
+import com.example.demo.src.store.model.GetStoreByCategoryRes;
 import com.example.demo.src.store.model.GetStoreCategoriesRes;
+import com.example.demo.src.store.model.GetStoreMenuRes;
 import com.example.demo.src.store.model.GetStoreRes;
 import com.example.demo.src.user.model.*;
 import com.example.demo.utils.JwtService;
@@ -44,6 +46,24 @@ public class StoreProvider {
         try {
             GetStoreRes getStoreRes = storeDao.getStore(storeId);
             return getStoreRes;
+        } catch (Exception exception) {
+            throw new BaseException(DATABASE_ERROR);
+        }
+    }
+
+    public List<GetStoreByCategoryRes> getStoreByCategory(int categoryId) throws BaseException {
+        try {
+            List<GetStoreByCategoryRes> getStoreByCategoryRes = storeDao.getStoreByCategory(categoryId);
+            return getStoreByCategoryRes;
+        } catch (Exception exception) {
+            throw new BaseException(DATABASE_ERROR);
+        }
+    }
+
+    public List<GetStoreMenuRes> getStoreMenu(int storeId) throws BaseException {
+        try {
+            List<GetStoreMenuRes> getStoreMenuRes = storeDao.getStoreMenu(storeId);
+            return getStoreMenuRes;
         } catch (Exception exception) {
             throw new BaseException(DATABASE_ERROR);
         }

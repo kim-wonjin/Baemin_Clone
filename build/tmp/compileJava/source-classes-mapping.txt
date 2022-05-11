@@ -14,8 +14,14 @@ com/example/demo/utils/ValidationRegex.java
  com.example.demo.utils.ValidationRegex
 com/example/demo/src/user/model/PostLoginRes.java
  com.example.demo.src.user.model.PostLoginRes
+com/example/demo/src/user/model/PostUserCouponReq.java
+ com.example.demo.src.user.model.PostUserCouponReq
 com/example/demo/src/user/UserDao.java
  com.example.demo.src.user.UserDao
+com/example/demo/src/user/model/PatchAddressReq.java
+ com.example.demo.src.user.model.PatchAddressReq
+com/example/demo/src/store/model/GetStoreMenuRes.java
+ com.example.demo.src.store.model.GetStoreMenuRes
 com/example/demo/config/BaseResponseStatus.java
  com.example.demo.config.BaseResponseStatus
 com/example/demo/src/user/model/PatchUserReq.java
@@ -40,6 +46,8 @@ com/example/demo/src/user/model/PostUserRes.java
  com.example.demo.src.user.model.PostUserRes
 com/example/demo/src/user/UserController.java
  com.example.demo.src.user.UserController
+com/example/demo/src/store/model/GetStoreByCategoryRes.java
+ com.example.demo.src.store.model.GetStoreByCategoryRes
 com/example/demo/config/BaseResponse.java
  com.example.demo.config.BaseResponse
 com/example/demo/src/store/StoreService.java
@@ -54,6 +62,8 @@ com/example/demo/src/user/UserService.java
  com.example.demo.src.user.UserService
 com/example/demo/src/user/model/GetUserRes.java
  com.example.demo.src.user.model.GetUserRes
+com/example/demo/src/user/model/PostUserCouponRes.java
+ com.example.demo.src.user.model.PostUserCouponRes
 com/example/demo/config/BaseException.java
  com.example.demo.config.BaseException
 com/example/demo/DemoApplication.java

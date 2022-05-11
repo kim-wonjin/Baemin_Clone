@@ -11,6 +11,6 @@ public class PatchUserReq {
     private int userId;
     private String userName;
     private String phoneNum;
-    private String agree_to_receive_mail;
-    private String agree_to_receive_sms;
+    private String agreeToReceiveMail;
+    private String agreeToReceiveSms;
 }

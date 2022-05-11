@@ -65,11 +65,45 @@ public class UserService {
         }
     }
 
+    public PostUserCouponRes createCoupon(PostUserCouponReq postUserCouponReq) throws BaseException {
+        if(userProvider.checkCoupon(postUserCouponReq.getUserId(), postUserCouponReq.getCouponId()) == 1){
+            throw new BaseException(POST_USERS_EXISTS_COUPON);
+        }
+        try{
+            int userCouponId = userDao.createCoupon(postUserCouponReq);
+            return new PostUserCouponRes(userCouponId);
+        } catch (Exception exception) {
+            throw new BaseException(DATABASE_ERROR);
+        }
+    }
+
     public void modifyUser(PatchUserReq patchUserReq) throws BaseException {
         try{
             int result = userDao.modifyUser(patchUserReq);
             if(result == 0){
                 throw new BaseException(MODIFY_FAIL_USERINFO);
+            }
+        } catch(Exception exception){
+            throw new BaseException(DATABASE_ERROR);
+        }
+    }
+
+    public void modifyAddress(PatchAddressReq patchAddressReq) throws BaseException {
+        try{
+            int result = userDao.modifyAddress(patchAddressReq);
+            if(result == 0){
+                throw new BaseException(MODIFY_FAIL_ADDRESS);
+            }
+        } catch(Exception exception){
+            throw new BaseException(DATABASE_ERROR);
+        }
+    }
+
+    public void deleteAddress(int addressId) throws BaseException {
+        try{
+            int result = userDao.deleteAddress(addressId);
+            if(result == 0){
+                throw new BaseException(DELETE_FAIL_ADDRESS);
             }
         } catch(Exception exception){
             throw new BaseException(DATABASE_ERROR);

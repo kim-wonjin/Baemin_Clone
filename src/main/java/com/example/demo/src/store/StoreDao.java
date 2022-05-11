@@ -52,4 +52,39 @@ public class StoreDao {
                         rs.getString("store_description")),
                         getStoreParams);
     }
+
+    public List<GetStoreByCategoryRes> getStoreByCategory(int categoryId){
+        String getStoreByCategoryQuery = "SELECT S.store_id AS storeId, S.store_name AS storeName, I.store_image_url AS storeImageUrl, S.average_rating AS rating, S.store_description AS description,\n" +
+                "       S.min_price AS minPrice,S.delivery_fee AS deliveryFee, CONCAT(S.min_required_time, '~' ,S.max_required_time) AS requiredTime,\n" +
+                "       S.is_takeout_available AS isTakeoutPossible FROM Stores S LEFT JOIN Store_images I ON S.store_id = I.store_id\n" +
+                "WHERE S.store_category_id = ?";
+        return this.jdbcTemplate.query(getStoreByCategoryQuery,
+                (rs, rowNum) -> new GetStoreByCategoryRes(
+                        rs.getInt("storeId"),
+                        rs.getString("storeName"),
+                        rs.getString("storeImageurl"),
+                        rs.getFloat("rating"),
+                        rs.getString("description"),
+                        rs.getInt("minPrice"),
+                        rs.getInt("deliveryFee"),
+                        rs.getString("requiredTime"),
+                        rs.getString("isTakeoutPossible")), categoryId);
+    }
+
+    public List<GetStoreMenuRes> getStoreMenu(int storeId){
+        String getStoreMenuQuery = "SELECT M.menu_id AS menuId, M.menu_name AS menuName, M.menu_description AS description, M.menu_price AS price,\n" +
+                " M.is_signature_menu AS isSignature, M.is_popular_menu AS isPopular, I.menu_image_url AS menuImageUrl, M.menu_category_id AS categoryId\n" +
+                "FROM Menu M, Menu_images I\n" +
+                "WHERE M.menu_id = I.menu_id && M.store_id = ?";
+        return this.jdbcTemplate.query(getStoreMenuQuery,
+                (rs, rowNum) -> new GetStoreMenuRes(
+                        rs.getInt("menuId"),
+                        rs.getString("menuName"),
+                        rs.getString("description"),
+                        rs.getInt("price"),
+                        rs.getString("isSignature"),
+                        rs.getString("isPopular"),
+                        rs.getString("menuImageUrl"),
+                        rs.getInt("categoryId")), storeId);
+    }
 }

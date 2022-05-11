@@ -87,34 +87,14 @@ public class UserController {
     public BaseResponse<List <GetUserAddressRes>> getUserAddress(@PathVariable("userId") int userId) {
         // Get User Address
         try{
-            List <GetUserAddressRes> getUserAddressRes = userProvider.getUserAddress(userId);
-            return new BaseResponse<>(getUserAddressRes);
-        } catch(BaseException exception){
-            return new BaseResponse<>((exception.getStatus()));
-        }
-    }
-    /**
-     * 유저 주소 생성 API
-     * [POST] /users/address
-     * @return BaseResponse<PostUserAddressRes>
-     */
-    // Body
-    @ResponseBody
-    @PostMapping("/address")
-    public BaseResponse<PostUserAddressRes> createUser(@RequestBody PostUserAddressReq postUserAddressReq) {
-        try{
             //jwt에서 idx 추출.
             int userIdByJwt = jwtService.getUserId();
             //userId와 접근한 유저가 같은지 확인
-            if(postUserAddressReq.getUserId() != userIdByJwt) {
+            if(userId != userIdByJwt){
                 return new BaseResponse<>(INVALID_USER_JWT);
             }
-            // null validation
-            if(postUserAddressReq.getAddress() == null){
-                return new BaseResponse<>(POST_USERS_EMPTY_ADDRESS);
-            }
-            PostUserAddressRes postUserAddressRes = userService.createAddress(postUserAddressReq);
-            return new BaseResponse<>(postUserAddressRes);
+            List <GetUserAddressRes> getUserAddressRes = userProvider.getUserAddress(userId);
+            return new BaseResponse<>(getUserAddressRes);
         } catch(BaseException exception){
             return new BaseResponse<>((exception.getStatus()));
         }
@@ -198,13 +178,63 @@ public class UserController {
     }
 
     /**
-     * 유저정보변경 API
+     * 유저 주소 생성 API
+     * [POST] /users/address
+     * @return BaseResponse<PostUserAddressRes>
+     */
+    // Body
+    @ResponseBody
+    @PostMapping("/address")
+    public BaseResponse<PostUserAddressRes> createUser(@RequestBody PostUserAddressReq postUserAddressReq) {
+        try{
+            //jwt에서 idx 추출.
+            int userIdByJwt = jwtService.getUserId();
+            //userId와 접근한 유저가 같은지 확인
+            if(postUserAddressReq.getUserId() != userIdByJwt) {
+                return new BaseResponse<>(INVALID_USER_JWT);
+            }
+            // null validation
+            if(postUserAddressReq.getAddress() == null){
+                return new BaseResponse<>(POST_USERS_EMPTY_ADDRESS);
+            }
+            PostUserAddressRes postUserAddressRes = userService.createAddress(postUserAddressReq);
+            return new BaseResponse<>(postUserAddressRes);
+        } catch(BaseException exception){
+            return new BaseResponse<>((exception.getStatus()));
+        }
+    }
+
+    /**
+     * 유저 쿠폰 생성 API
+     * [POST] /users/coupons
+     * @return BaseResponse<PostUserAddressRes>
+     */
+    // Body
+    @ResponseBody
+    @PostMapping("/coupons")
+    public BaseResponse<PostUserCouponRes> createUser(@RequestBody PostUserCouponReq postUserCouponReq) {
+        try{
+            //jwt에서 idx 추출.
+            int userIdByJwt = jwtService.getUserId();
+            //userId와 접근한 유저가 같은지 확인
+            if(postUserCouponReq.getUserId() != userIdByJwt) {
+                return new BaseResponse<>(INVALID_USER_JWT);
+            }
+            PostUserCouponRes postUserCouponRes= userService.createCoupon(postUserCouponReq);
+            return new BaseResponse<>(postUserCouponRes);
+        } catch(BaseException exception){
+            return new BaseResponse<>((exception.getStatus()));
+        }
+    }
+
+    /**
+     * 유저정보 수정 API
      * [PATCH] /users/:userId
      * @return BaseResponse<String>
      */
     @ResponseBody
     @PatchMapping("/{userId}")
-    public BaseResponse<String> modifyUserName(@PathVariable("userId") int userId, @RequestBody PatchUserReq patchUserReq){
+    public BaseResponse<String> modifyUser(@PathVariable("userId") int userId, @RequestBody PatchUserReq patchUserReq){
         try {
             //jwt에서 idx 추출.
             int userIdByJwt = jwtService.getUserId();
@@ -216,6 +246,56 @@ public class UserController {
             userService.modifyUser(patchUserReq);
 
             String result = "변경 완료";
+            return new BaseResponse<>(result);
+        } catch (BaseException exception) {
+            return new BaseResponse<>((exception.getStatus()));
+        }
+    }
+
+    /**
+     * 유저주소 수정 API
+     * [PATCH] /users/address/:addressId
+     * @return BaseResponse<String>
+     */
+    @ResponseBody
+    @PatchMapping("/address/{addressId}")
+    public BaseResponse<String> modifyAddress(@PathVariable("addressId") int addressId, @RequestBody PatchAddressReq patchAddressReq ){
+        try {
+            //jwt에서 idx 추출.
+            int userIdByJwt = jwtService.getUserId();
+            //userId와 접근한 유저가 같은지 확인
+            if(patchAddressReq.getUserId() != userIdByJwt){
+                return new BaseResponse<>(INVALID_USER_JWT);
+            }
+            //같다면 유저 주소 수정
+            userService.modifyAddress(patchAddressReq);
+
+            String result = "변경 완료";
+            return new BaseResponse<>(result);
+        } catch (BaseException exception) {
+            return new BaseResponse<>((exception.getStatus()));
+        }
+    }
+
+    /**
+     * 유저주소 삭제 API
+     * [DELETE] /users/:userId/address/:addressId
+     * @return BaseResponse<String>
+     */
+    @ResponseBody
+    @DeleteMapping("/{userId}/address/{addressId}")
+    public BaseResponse<String> deleteAddress(@PathVariable("userId") int userId, @PathVariable("addressId") int addressId){
+        try {
+            //jwt에서 idx 추출.
+            int userIdByJwt = jwtService.getUserId();
+            //userId와 접근한 유저가 같은지 확인
+            if(userId != userIdByJwt){
+                return new BaseResponse<>(INVALID_USER_JWT);
+            }
+            //같다면 유저 주소 삭제
+            userService.deleteAddress(addressId);
+
+            String result = "삭제 완료";
             return new BaseResponse<>(result);
         } catch (BaseException exception) {
             return new BaseResponse<>((exception.getStatus()));

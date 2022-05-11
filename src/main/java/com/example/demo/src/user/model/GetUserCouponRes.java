@@ -14,6 +14,6 @@ public class GetUserCouponRes {
     private String couponName;
     private int discount;
     private int minPrice;
-    private Timestamp createdAt;
-    private Timestamp expireAt;
+    private String createdAt;
+    private String expireAt;
 }

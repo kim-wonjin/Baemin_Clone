@@ -87,6 +87,14 @@ public class UserProvider {
         }
     }
 
+    public int checkCoupon(int userId, int couponId) throws BaseException{
+        try{
+            return userDao.checkCoupon(userId, couponId);
+        } catch (Exception exception){
+            throw new BaseException(DATABASE_ERROR);
+        }
+    }
+
     public PostLoginRes login(PostLoginReq postLoginReq) throws BaseException{
         User user = userDao.getPwd(postLoginReq);
         String encryptPwd;
