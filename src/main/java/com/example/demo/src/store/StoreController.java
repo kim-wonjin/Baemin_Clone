@@ -1,9 +1,6 @@
 package com.example.demo.src.store;
 
-import com.example.demo.src.store.model.GetStoreByCategoryRes;
-import com.example.demo.src.store.model.GetStoreCategoriesRes;
-import com.example.demo.src.store.model.GetStoreMenuRes;
-import com.example.demo.src.store.model.GetStoreRes;
+import com.example.demo.src.store.model.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.example.demo.config.BaseException;
@@ -100,6 +97,23 @@ public class StoreController {
         try{
             List <GetStoreMenuRes> getStoreMenuRes = storeProvider.getStoreMenu(storeId);
             return new BaseResponse<>(getStoreMenuRes);
+        } catch(BaseException exception){
+            return new BaseResponse<>((exception.getStatus()));
+        }
+    }
+
+    /**
+     * 가게 메뉴 옵션 조회 API
+     * [GET] /stores/menu/:menuId/options
+     * * @return BaseResponse<GetMenuOptionRes>
+     */
+    @ResponseBody
+    @GetMapping("/menu/{menuId}/options") // (GET) 127.0.0.1:9000/api/stores/menu/:menuId/options
+    public BaseResponse<List<GetMenuOptionRes>> getMenuOptionRes(@PathVariable ("menuId") int menuId) {
+        // Get Menu options
+        try{
+            List <GetMenuOptionRes> getMenuOptionRes = storeProvider.getMenuOption(menuId);
+            return new BaseResponse<>(getMenuOptionRes);
         } catch(BaseException exception){
             return new BaseResponse<>((exception.getStatus()));
         }

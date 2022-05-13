@@ -35,6 +35,9 @@ public enum BaseResponseStatus {
     POST_USERS_EMPTY_ADDRESS(false, 2021, "주소를 입력해주세요."),
     POST_USERS_EXISTS_COUPON(false,2022,"이미 발급된 쿠폰입니다."),
 
+    // [POST] /order
+    POST_ORDER_NO_CART(false,2023,"장바구니 생성에 실패하였습니다."),
+
 
     /**
      * 3000 : Response 오류
@@ -58,6 +61,12 @@ public enum BaseResponseStatus {
     MODIFY_FAIL_USERINFO(false,4014,"유저정보 수정에 실패하였습니다"),
     DELETE_FAIL_ADDRESS(false,4015,"유저주소 삭제에 실패하였습니다"),
     MODIFY_FAIL_ADDRESS(false,4016,"유저주소 수정에 실패하였습니다"),
+
+    //[POST] /order
+    CREATE_FAIL_ORDER_MENU(false,4016,"주문 메뉴 생성에 실패하였습니다."),
+    UPDATE_CART_PRICE_FAIL(false,4018,"장바구니 금액 변동에 실패하였습니다."),
+    //[PATCH] /order
+    DELETE_FAIL_ORDER_MENU(false,4017,"주문 메뉴 삭제에 실패하였습니다"),
 
     PASSWORD_ENCRYPTION_ERROR(false, 4011, "비밀번호 암호화에 실패하였습니다."),
     PASSWORD_DECRYPTION_ERROR(false, 4012, "비밀번호 복호화에 실패하였습니다.");

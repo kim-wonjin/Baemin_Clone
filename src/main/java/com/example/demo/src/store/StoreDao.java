@@ -87,4 +87,18 @@ public class StoreDao {
                         rs.getString("menuImageUrl"),
                         rs.getInt("categoryId")), storeId);
     }
+
+    public List<GetMenuOptionRes> getMenuOption(int menuId){
+        String getMenuOptionQuery = "SELECT O.option_id AS optionId, O.option_name AS optionName, V.option_value_id AS valueId, V.option_value_name AS valueName, V.additional_price AS additionalPrice \n" +
+                " FROM Menu_options O JOIN Menu_options_value V ON O.option_id = V.option_id WHERE O.menu_id = ? ";
+        return this.jdbcTemplate.query(getMenuOptionQuery,
+                        (rs, rowNum) -> new GetMenuOptionRes(
+                                rs.getInt("optionId"),
+                                rs.getString("optionName"),
+                                rs.getInt("valueId"),
+                                rs.getString("valueName"),
+                                rs.getInt("additionalPrice")
+                        ), menuId);
+
+    }
 }

@@ -111,6 +111,12 @@ public class UserController {
     public BaseResponse<List <GetUserCouponRes>> getUserCoupon(@PathVariable("userId") int userId) {
         // Get User Address
         try{
+            //jwt에서 idx 추출.
+            int userIdByJwt = jwtService.getUserId();
+            //userId와 접근한 유저가 같은지 확인
+            if(userId != userIdByJwt){
+                return new BaseResponse<>(INVALID_USER_JWT);
+            }
             List <GetUserCouponRes> getUserCouponRes = userProvider.getUserCoupon(userId);
             return new BaseResponse<>(getUserCouponRes);
         } catch(BaseException exception){
