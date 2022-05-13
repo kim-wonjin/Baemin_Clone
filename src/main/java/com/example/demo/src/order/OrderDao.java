@@ -2,6 +2,7 @@ package com.example.demo.src.order;
 
 import com.example.demo.src.order.model.GetCartRes;
 import com.example.demo.src.order.model.PostOrderMenuReq;
+import com.example.demo.src.order.model.PostOrderReq;
 import com.example.demo.src.user.model.*;
 import com.sun.org.apache.xerces.internal.util.SynchronizedSymbolTable;
 import lombok.Getter;
@@ -77,5 +78,34 @@ public class OrderDao {
                         rs.getInt("delivery_fee"),
                         rs.getInt("expected_price"))
                 , userId);
+    }
+
+    public int createOrder(int userId, int cartId, PostOrderReq postOrderReq){
+        String getStoreIdQuery = "SELECT M.store_id FROM Menu M, Order_menu O, Order_carts C WHERE C.cart_id = O.cart_id && O.menu_id = M.menu_id && C.cart_id = ?";
+        String getFinalPriceQuery = "SELECT C.expected_price FROM Order_carts C WHERE C.cart_id = ?";
+        int storeId = this.jdbcTemplate.queryForObject(getStoreIdQuery, int.class, cartId);
+        int finalPrice = this.jdbcTemplate.queryForObject(getFinalPriceQuery, int.class, cartId);
+
+        String createOrderQuery = "INSERT INTO Orders (cart_id, user_id, store_id, order_type, delivery_address_id,\n " +
+                "final_price, to_owner_memo, to_rider_memo, user_coupon_id, is_disposable_needed, pay_type)\n" +
+                "VALUES (?,?,?,?,?,?,?,?,?,?,?)";
+        Object[] creatOrderParams = new Object[] {cartId, userId, storeId, postOrderReq.getOrderType(), postOrderReq.getAddressId(), finalPrice, postOrderReq.getToStoreMemo(),
+        postOrderReq.getToRiderMemo(), postOrderReq.getUserCouponId(), postOrderReq.getIsDisposableNeeded(), postOrderReq.getPayType()};
+        this.jdbcTemplate.update(createOrderQuery, creatOrderParams);
+
+        String lastInsertIdQuery = "SELECT last_insert_id()";
+        return this.jdbcTemplate.queryForObject(lastInsertIdQuery,int.class);
+    }
+
+    public void updateCartStatus(int cartId){
+        String updateCartStatusQuery = "UPDATE Order_carts SET status = '주문 완료' WHERE Order_carts.cart_id = ?";
+        this.jdbcTemplate.update(updateCartStatusQuery, cartId);
+    }
+
+    public void increaseOrderCount(int cartId){
+        String getStoreIdQuery = "SELECT M.store_id FROM Menu M, Order_menu O, Order_carts C WHERE C.cart_id = O.cart_id && O.menu_id = M.menu_id && C.cart_id = ?";
+        int storeId = this.jdbcTemplate.queryForObject(getStoreIdQuery, int.class, cartId);
+        String increaseOrderCountQuery = "UPDATE Stores SET order_count = Stores.order_count + 1 WHERE Stores.store_id = ?";
+        this.jdbcTemplate.update(increaseOrderCountQuery, storeId);
     }
 }

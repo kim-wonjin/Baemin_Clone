@@ -2,22 +2,17 @@ package com.example.demo.src.order;
 
 import com.example.demo.src.order.model.GetCartRes;
 import com.example.demo.src.order.model.PostOrderMenuReq;
-import com.example.demo.src.store.model.*;
+import com.example.demo.src.order.model.PostOrderReq;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.example.demo.config.BaseException;
 import com.example.demo.config.BaseResponse;
-import com.example.demo.src.user.model.*;
 import com.example.demo.utils.JwtService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import javax.transaction.Transactional;
-import java.util.List;
-
 
 import static com.example.demo.config.BaseResponseStatus.*;
-import static com.example.demo.utils.ValidationRegex.isRegexEmail;
 
 @RestController
 @RequestMapping("/api/order")
@@ -113,13 +108,13 @@ public class OrderController {
 
     /**
      * 주문 생성 API
-     * [POST] /order
+     * [POST] /order/:userId
      * @return BaseResponse<POST>
      */
     // Body
     @ResponseBody
-    @PostMapping("/carts/{userId}/menu")
-    public BaseResponse<String> createOrderMenu(@PathVariable ("userId") int userId, @RequestBody PostOrderMenuReq postOrderMenuReq) {
+    @PostMapping("{userId}")
+    public BaseResponse<Integer> createOrder(@PathVariable ("userId") int userId, @RequestBody PostOrderReq postOrderReq) {
         try{
             //jwt에서 idx 추출.
             int userIdByJwt = jwtService.getUserId();
@@ -127,9 +122,8 @@ public class OrderController {
             if((userId) != userIdByJwt) {
                 return new BaseResponse<>(INVALID_USER_JWT);
             }
-            orderService.createOrderMenu(userId, postOrderMenuReq);
-            String result = "장바구니에 메뉴 추가 성공";
-            return new BaseResponse<>(result);
+            Integer orderId = orderService.createOrder(userId, postOrderReq);
+            return new BaseResponse<>(orderId);
         } catch(BaseException exception){
             return new BaseResponse<>((exception.getStatus()));
         }

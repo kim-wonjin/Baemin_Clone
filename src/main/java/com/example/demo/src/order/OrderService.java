@@ -2,12 +2,8 @@ package com.example.demo.src.order;
 
 import com.example.demo.config.BaseException;
 import com.example.demo.src.order.model.PostOrderMenuReq;
-import com.example.demo.src.user.UserDao;
-import com.example.demo.src.user.UserProvider;
-import com.example.demo.src.user.model.PatchUserReq;
+import com.example.demo.src.order.model.PostOrderReq;
 import com.example.demo.utils.JwtService;
-import com.example.demo.utils.SHA256;
-import org.hibernate.criterion.Order;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -83,5 +79,37 @@ public class OrderService {
         } catch(Exception exception){
             throw new BaseException(DATABASE_ERROR);
         }
+    }
+
+    @Transactional (rollbackOn = BaseException.class)
+    public int createOrder(int userId, PostOrderReq postOrderReq) throws BaseException {
+        int cartId;
+        int orderId;
+        // 유저의 장바구니 확인
+        try{
+            cartId = orderDao.checkCart(userId);
+        } catch (Exception exception) {
+            throw new BaseException(POST_ORDER_NO_CART);
+        }
+        // 장바구니 주문
+        try{
+            orderId = orderDao.createOrder(userId, cartId, postOrderReq);
+        } catch (Exception exception) {
+            throw new BaseException(DATABASE_ERROR);
+        }
+        // 장바구니 상태변경
+        try{
+            orderDao.updateCartStatus(cartId);
+        } catch (Exception exception) {
+            throw new BaseException(UPDATE_CART_STATUS_FAIL);
+        }
+        // 가게 주문 수 증가
+        try{
+            orderDao.increaseOrderCount(cartId);
+        } catch (Exception exception) {
+            throw new BaseException(UPDATE_ORDER_COUNT_FAIL);
+        }
+        return (orderId);
+
     }
 }

@@ -36,7 +36,7 @@ public enum BaseResponseStatus {
     POST_USERS_EXISTS_COUPON(false,2022,"이미 발급된 쿠폰입니다."),
 
     // [POST] /order
-    POST_ORDER_NO_CART(false,2023,"장바구니 생성에 실패하였습니다."),
+    POST_ORDER_NO_CART(false,2023,"장바구니를 찾지 못했습니다."),
 
 
     /**
@@ -65,7 +65,9 @@ public enum BaseResponseStatus {
     //[POST] /order
     CREATE_FAIL_ORDER_MENU(false,4016,"주문 메뉴 생성에 실패하였습니다."),
     UPDATE_CART_PRICE_FAIL(false,4018,"장바구니 금액 변동에 실패하였습니다."),
-    //[PATCH] /order
+    UPDATE_CART_STATUS_FAIL(false,4019,"장바구니 상태 변경에 실패하였습니다."),
+    UPDATE_ORDER_COUNT_FAIL(false,4020,"매장 주문량 증가에 실패하였습니다."),
+    //[DELETE] /order
     DELETE_FAIL_ORDER_MENU(false,4017,"주문 메뉴 삭제에 실패하였습니다"),
 
     PASSWORD_ENCRYPTION_ERROR(false, 4011, "비밀번호 암호화에 실패하였습니다."),

@@ -58,6 +58,10 @@ com/example/demo/src/store/model/GetStoreByCategoryRes.java
  com.example.demo.src.store.model.GetStoreByCategoryRes
 com/example/demo/src/user/model/User.java
  com.example.demo.src.user.model.User
+com/example/demo/src/order/model/GetCartRes.java
+ com.example.demo.src.order.model.GetCartRes
+com/example/demo/src/order/model/PostOrderReq.java
+ com.example.demo.src.order.model.PostOrderReq
 com/example/demo/src/order/OrderDao.java
  com.example.demo.src.order.OrderDao
 com/example/demo/src/store/StoreController.java
@@ -74,8 +78,6 @@ com/example/demo/src/user/UserService.java
  com.example.demo.src.user.UserService
 com/example/demo/config/BaseResponseStatus.java
  com.example.demo.config.BaseResponseStatus
-com/example/demo/src/order/model/GetCartRes.java
- com.example.demo.src.order.model.GetCartRes
 com/example/demo/config/BaseException.java
  com.example.demo.config.BaseException
 com/example/demo/src/order/OrderProvider.java
