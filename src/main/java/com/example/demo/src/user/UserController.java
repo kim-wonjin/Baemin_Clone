@@ -307,6 +307,13 @@ public class UserController {
             return new BaseResponse<>((exception.getStatus()));
         }
     }
+    @ResponseBody
+    @GetMapping("/kakao")
+    public BaseResponse<PostKakaoRes> kakaoCallback(@RequestParam String code) throws BaseException {
 
+        String access_Token = userService.getKaKaoAccessToken(code);
+        return userService.createKakaoUser(access_Token);
+
+    }
 
 }

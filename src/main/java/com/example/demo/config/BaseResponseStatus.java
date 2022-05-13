@@ -24,6 +24,9 @@ public enum BaseResponseStatus {
 
     // users
     USERS_EMPTY_USER_ID(false, 2010, "유저 아이디 값을 확인해주세요."),
+    EMPTY_TOKEN(false, 2011, "TOKEN을 확인해주세요."),
+    INVALID_TOKEN(false, 2012, "유효하지 않은 토큰입니다."),
+    KAKAO_LOGIN_FAIL(false, 2013, "카카오 로그인에 실패하였습니다."),
 
     // [POST] /users
     POST_USERS_EMPTY_USER_NAME(false, 2015, "닉네임을 입력해주세요."),

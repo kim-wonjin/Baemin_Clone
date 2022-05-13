@@ -25,6 +25,9 @@ repositories {
 dependencies {
     implementation 'org.jetbrains:annotations:19.0.0'
 
+    // 카카오 소셜 로그인
+    implementation 'com.google.code.gson:gson:2.8.7'
+
 
     // Spring Boot Starter
     testImplementation ('org.springframework.boot:spring-boot-starter-test')
