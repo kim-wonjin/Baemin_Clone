@@ -8,6 +8,6 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 public class PostKakaoRes {
-    private long userId;
+    private String email;
     private String jwt;
 }

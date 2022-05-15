@@ -42,8 +42,8 @@ com/example/demo/src/test/TestController.java
  com.example.demo.src.test.TestController
 com/example/demo/src/user/model/PostUserAddressRes.java
  com.example.demo.src.user.model.PostUserAddressRes
-com/example/demo/src/user/model/PostKakaoRes.java
- com.example.demo.src.user.model.PostKakaoRes
+com/example/demo/src/review/model/GetUserReviewRes.java
+ com.example.demo.src.review.model.GetUserReviewRes
 com/example/demo/src/user/model/PostLoginReq.java
  com.example.demo.src.user.model.PostLoginReq
 com/example/demo/config/secret/Secret.java
@@ -70,8 +70,8 @@ com/example/demo/src/user/model/User.java
  com.example.demo.src.user.model.User
 com/example/demo/src/store/StoreProvider.java
  com.example.demo.src.store.StoreProvider
-com/example/demo/src/user/UserService.java
- com.example.demo.src.user.UserService
+com/example/demo/src/review/ReviewController.java
+ com.example.demo.src.review.ReviewController
 com/example/demo/src/order/model/PostOrderReq.java
  com.example.demo.src.order.model.PostOrderReq
 com/example/demo/src/order/model/GetCartRes.java
@@ -88,5 +88,17 @@ com/example/demo/utils/JwtService.java
  com.example.demo.utils.JwtService
 com/example/demo/src/user/UserProvider.java
  com.example.demo.src.user.UserProvider
+com/example/demo/src/review/ReviewService.java
+ com.example.demo.src.review.ReviewService
+com/example/demo/src/review/model/GetStoreReviewRes.java
+ com.example.demo.src.review.model.GetStoreReviewRes
+com/example/demo/src/review/ReviewDao.java
+ com.example.demo.src.review.ReviewDao
+com/example/demo/src/review/ReviewProvider.java
+ com.example.demo.src.review.ReviewProvider
+com/example/demo/src/user/UserService.java
+ com.example.demo.src.user.UserService
 com/example/demo/src/user/UserController.java
  com.example.demo.src.user.UserController
+com/example/demo/src/user/model/PostKakaoRes.java
+ com.example.demo.src.user.model.PostKakaoRes

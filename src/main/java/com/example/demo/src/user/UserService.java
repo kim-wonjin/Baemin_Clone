@@ -213,7 +213,7 @@ public class UserService {
             System.out.println("email : " + email);
             String jwt = jwtService.createJwt(id);
             br.close();
-            postKakaoRes = new PostKakaoRes(id, jwt);
+            postKakaoRes = new PostKakaoRes(email, jwt);
             return new BaseResponse<>(postKakaoRes);
         } catch (IOException e) {
             e.printStackTrace();
