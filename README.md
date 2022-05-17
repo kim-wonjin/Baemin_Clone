@@ -1,11 +1,11 @@
 # 배달의 민족 서버 클론코딩
 
 ## ✨Reference
-🔗[ERD by Aquery Tool](https://aquerytool.com/aquerymain/index/?rurl=33fc47e8-1846-486f-8bf5-4e33fbca5c5f&)
+> 🔗[ERD by Aquery Tool](https://aquerytool.com/aquerymain/index/?rurl=33fc47e8-1846-486f-8bf5-4e33fbca5c5f&)
   - Password : c4142h
-🔗[erd 설계 정리](https://one-zin.tistory.com/12)
-🔗[화면 별 쿼 작성 연습](https://one-zin.tistory.com/11)
-🔗[API 명세서](https://docs.google.com/spreadsheets/d/1lL4lxzM0Ikb68cceCSYthiLRJLfHPpQVNN3otPoUHeE/edit?usp=sharing)
+> 🔗[erd 설계 정리](https://one-zin.tistory.com/12)
+> 🔗[화면 별 쿼 작성 연습](https://one-zin.tistory.com/11)
+> 🔗[API 명세서](https://docs.google.com/spreadsheets/d/1lL4lxzM0Ikb68cceCSYthiLRJLfHPpQVNN3otPoUHeE/edit?usp=sharing)
 
 # Spring Boot Template
 
